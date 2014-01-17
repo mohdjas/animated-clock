@@ -13,16 +13,18 @@ class Watch extends WatchInternals implements IWatch {
       yearCentreX = originX;
       yearCentreY = originY;
       
-      facePlateColour = 0xFF000000;
-      secondsColour = 0xFF000000;
-      minutesColour = 0xFFCA2D00;
-      hoursColour = 0xFFCA5F00;
-      daysColour = 0xFF01717B;
-      monthsColour = 0xFF008F42;
-      yearsColour = 0xFF202020;
+      facePlateColour = 191;
+      
+      secondsColour = 255;
+      minutesColour = 153;
+      hoursColour = 128;
+      
+      daysColour = 102;
+      monthsColour = 77;
+      yearsColour = 51;
       
       facePlateRadius = 0.48*canvasHeight;
-      yearRadius = 0.995*facePlateRadius;
+      yearRadius = facePlateRadius;
       monthRadius = 0.75*yearRadius;
       dayRadius = 0.45*monthRadius;
       hourRadius = 0.40*dayRadius;
@@ -31,7 +33,7 @@ class Watch extends WatchInternals implements IWatch {
     }  
     
     void drawClock(){
-      drawFacePlate();
+      //drawFacePlate();
       drawYearsHand();
       drawMonthsHand();
       drawDaysHand();
@@ -57,6 +59,11 @@ class Watch extends WatchInternals implements IWatch {
       
       fill(monthsColour);
       ellipse(monthCentreX, monthCentreY, monthRadius, monthRadius);
+      
+      stroke(monthsColour);
+      strokeWeight(16);
+      line(yearCentreX, yearCentreY, monthCentreX, monthCentreY);
+      noStroke();
     }
     
     void drawDaysHand(){
@@ -66,6 +73,11 @@ class Watch extends WatchInternals implements IWatch {
       
       fill(daysColour);
       ellipse(dayCentreX, dayCentreY, dayRadius, dayRadius);
+      
+      stroke(daysColour);
+      strokeWeight(12);
+      line(monthCentreX, monthCentreY, dayCentreX, dayCentreY);
+      noStroke();
     }
     
     int getDaysInMonth(){
@@ -93,7 +105,12 @@ class Watch extends WatchInternals implements IWatch {
       hourCentreY = dayCentreY + (dayRadius-hourRadius)*cos(radians(180-hourAngle));
       
       fill(hoursColour);
-      ellipse(hourCentreX, hourCentreY, hourRadius, hourRadius);  
+      ellipse(hourCentreX, hourCentreY, hourRadius, hourRadius);
+    
+      stroke(hoursColour);
+      strokeWeight(8);
+      line(dayCentreX, dayCentreY, hourCentreX, hourCentreY);
+      noStroke();      
     }
     
     void drawMinutesHand(){
@@ -103,6 +120,11 @@ class Watch extends WatchInternals implements IWatch {
       
       fill(minutesColour);
       ellipse(minuteCentreX, minuteCentreY, minuteRadius, minuteRadius);
+      
+      stroke(minutesColour);
+      strokeWeight(4);
+      line(hourCentreX, hourCentreY, minuteCentreX, minuteCentreY);
+      noStroke();
     }
     
     void drawSecondsHand(){
@@ -113,6 +135,10 @@ class Watch extends WatchInternals implements IWatch {
       y = minuteCentreY + (minuteRadius-secondRadius)*cos(radians(180-secondAngle));
       fill(secondsColour);
       ellipse(x, y, secondRadius, secondRadius);
+      stroke(secondsColour);
+      strokeWeight(1);
+      line(minuteCentreX, minuteCentreY, x, y);
+      noStroke();
     }
      
     void displayAlarm(){

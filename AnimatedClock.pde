@@ -5,7 +5,7 @@ Watch watch = new Watch(width, height);
 
 void setup(){
   size(width, height);
-  background(0.9*255);
+  background(0);
   noStroke();
   ellipseMode(RADIUS);
   frameRate(1);
